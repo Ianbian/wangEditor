@@ -9,6 +9,7 @@ import Text from '../text/index.js'
 import Command from '../command/index.js'
 import selectionAPI from '../selection/index.js'
 import UploadImg from './upload/upload-img.js'
+import UploadVideo from  './upload/upload-video.js'
 import { arrForEach, objForEach } from '../util/util.js'
 import { getRandom } from '../util/util.js'
 
@@ -152,11 +153,11 @@ Editor.prototype = {
         if(config.onfocus || config.onblur){
             // 当前编辑器是否是焦点状态
             this.isFocus = false
-            
+
             $(document).on('click', (e) => {
                 //判断当前点击元素是否在编辑器内
                 const isChild = $textElem.isContain($(e.target))
-                
+
                 //判断当前点击元素是否为工具栏
                 const isToolbar = $toolbarElem.isContain($(e.target))
                 const isMenu = $toolbarElem[0] == e.target ? true : false
@@ -195,6 +196,11 @@ Editor.prototype = {
     // 添加图片上传
     _initUploadImg: function () {
         this.uploadImg = new UploadImg(this)
+    },
+
+     // 添加视频上传
+    _initUploadVideo: function () {
+        this.uploadVideo = new UploadVideo(this)
     },
 
     // 初始化菜单
@@ -278,7 +284,7 @@ Editor.prototype = {
                     onchange(currentHtml)
                     beforeChangeHtml = currentHtml
                 }, onchangeTimeout)
-            }   
+            }
         }
 
         // -------- 绑定 onblur 事件 --------
@@ -297,7 +303,7 @@ Editor.prototype = {
                 onfocus()
             }
         }
-        
+
     },
 
     // 创建编辑器
@@ -322,6 +328,9 @@ Editor.prototype = {
 
         // 添加 图片上传
         this._initUploadImg()
+
+        // 添加 视频上传
+        this._initUploadVideo()
 
         // 初始化选区，将光标定位到内容尾部
         this.initSelection(true)
