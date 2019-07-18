@@ -47,7 +47,7 @@ UploadVideo.prototype = {
                 return
             }
         }
-        editor.cmd.do('insertHTML', `<p><video src="${link}" style="max-width:100%;" controls autobuffer/><br></p>`)
+        editor.cmd.do('insertHTML', `<p><video src="${link}" style="max-width:100%;" controls autobuffer/></p><p><br></p>`)
     },
 
     // 上传视频
